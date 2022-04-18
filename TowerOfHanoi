@@ -1,0 +1,27 @@
+#include<iostream>
+using namespace std;
+int count = 0;
+void solve(char beginTower,char midTower,char targetTower,int ans){
+    //这个solve函数解决将beginTower这个柱子上的ans个圆盘，使用midTower进行中转，放置到targetTower上
+    if(ans>0){//如果beginTower上没有圆盘了，那就不用操作了
+        count++;//记录操作数
+        solve(beginTower,targetTower,midTower,ans-1);//要是将ans个圆盘移到targetTower上，那就必须要把ans-1个圆盘移动到midTower上
+        cout << beginTower << "->"<<targetTower << endl;
+        //现在已经将ans-1个圆盘移动到midTower上了，所以输出将beginTower上的最后一个移动到targetTower上
+        solve(midTower,beginTower,targetTower,ans-1);//善始善终，将刚刚移动过去的ans-1个圆盘移到targetTower上
+    }
+    return;
+}
+int main(){
+    /*
+        今天下午班会课的第二个活动-汉诺塔问题的递归解法
+        汉诺塔是我学习的第二个递归题目(虽然学了两遍忘了两边)，我觉得汉诺塔算法完美的诠释了递归的一个思想
+        -不用从全局考虑怎么走，你要做的，就是走好属于你的一步就可以了
+    */
+    int n;
+    cin >> n;
+    solve('A','B','C',n);
+    cout <<"操作总数为"<<count << endl;
+    system("pause");
+    return 0;
+}
